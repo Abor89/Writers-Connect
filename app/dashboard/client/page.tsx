@@ -1,15 +1,17 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import Navbar from "@/components/Navbar"
+import ProjectPostingFlow from "@/components/ProjectPostingFlow"
 import { useAuth } from "@/components/AuthContext"
 import { Plus, Briefcase, Users, CheckCircle, DollarSign, Star, MessageCircle } from "lucide-react"
 
 export default function ClientDashboard() {
   const { user } = useAuth()
   const router = useRouter()
+  const [showProjectPosting, setShowProjectPosting] = useState(false)
 
   useEffect(() => {
     if (!user) {
@@ -21,6 +23,12 @@ export default function ClientDashboard() {
 
   if (!user || user.userType !== "client") {
     return <div>Loading...</div>
+  }
+
+  const handleProjectComplete = (projectData: any) => {
+    console.log("New project posted:", projectData)
+    // Here you would typically send the data to your backend
+    // For now, we'll just log it
   }
 
   const stats = [
@@ -75,6 +83,7 @@ export default function ClientDashboard() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setShowProjectPosting(true)}
                 className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold text-sm shadow-lg flex items-center space-x-2"
               >
                 <Plus size={16} />
@@ -244,6 +253,13 @@ export default function ClientDashboard() {
           </div>
         </div>
       </div>
+
+      {/* Project Posting Flow */}
+      <ProjectPostingFlow
+        isOpen={showProjectPosting}
+        onClose={() => setShowProjectPosting(false)}
+        onComplete={handleProjectComplete}
+      />
     </>
   )
 }

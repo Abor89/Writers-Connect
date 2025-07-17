@@ -4,11 +4,12 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Search, Heart, User, MessageCircle, Menu, X, Gift } from "lucide-react"
+import { Home, Search, Heart, User, MessageCircle, Menu, X, Gift, Briefcase } from "lucide-react"
 import { useAuth } from "./AuthContext"
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
+  { href: "/services", label: "Services", icon: Briefcase },
   { href: "/explore", label: "Explore", icon: Search },
   { href: "/matches", label: "Matches", icon: Heart },
   { href: "/messages", label: "Messages", icon: MessageCircle },
